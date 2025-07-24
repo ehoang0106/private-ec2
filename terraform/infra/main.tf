@@ -28,7 +28,7 @@ resource "aws_instance" "my-private-ec2" {
               sudo snap start amazon-ssm-agent
               EOF
 
-  #instance iam role "AllowEC2AccessSessionManagerToSSH"
-  iam_instance_profile = "AllowEC2AccessSessionManagerToSSH"
+  #instance iam role "AllowAccessSessionManagerToSSHToEC2"
+  iam_instance_profile = "AllowAccessSessionManagerToSSHToEC2"
 }
 
