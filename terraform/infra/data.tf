@@ -21,4 +21,9 @@ data "aws_subnet" "my-private-subnet" {
   }
 }
 
-
+data "aws_security_group" "allow-ssh-sg" {
+  filter {
+    name   = "tag:Name"
+    values = ["allow-ssh-sg"]
+  }
+}
