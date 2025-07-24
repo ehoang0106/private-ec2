@@ -94,7 +94,7 @@ resource "aws_route_table_association" "private" {
 
 #security groups
 
-resource "aws_security_group" "my-sg" {
+resource "aws_security_group" "allow-ssh-sg" {
   vpc_id = aws_vpc.my-vpc.id
   description = "Allow SSH inbound traffic"
   ingress {
@@ -113,6 +113,6 @@ resource "aws_security_group" "my-sg" {
   }
 
   tags = {
-    Name = "my-sg"
+    Name = "allow-ssh-sg"
   }
 }
