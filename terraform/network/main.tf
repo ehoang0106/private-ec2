@@ -63,6 +63,9 @@ resource "aws_route_table" "public" {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.my-igw.id
   }
+  tags = {
+    Name = "my-public-route-table"
+  }
 }
 resource "aws_route_table_association" "public" {
   subnet_id      = aws_subnet.my-public-subnet.id
@@ -83,3 +86,8 @@ resource "aws_route" "private_nat" {
   nat_gateway_id         = aws_nat_gateway.my-nat-gateway.id
 }
 
+#associate public subnet with private route table
+resource "aws_route_table_association" "private" {
+  subnet_id      = aws_subnet.my-private-subnet.id
+  route_table_id = aws_route_table.private.id
+}
