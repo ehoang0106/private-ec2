@@ -116,3 +116,28 @@ resource "aws_security_group" "allow-ssh-sg" {
     Name = "allow-ssh-sg"
   }
 }
+
+#create a role "AllowAccessSessionManagerToSSHToEC2"
+resource "aws_iam_role" "AllowEC2AccessSessionManagerToSSH" {
+  name = "AllowEC2AccessSessionManagerToSSH"
+
+  #add permission "AmazonSSMManagdatedInstanceCore"
+
+  assume_role_policy = jsonencode({
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "Service": "ec2.amazonaws.com"
+            },
+            "Action": "sts:AssumeRole"
+        }
+    ]
+})
+}
+
+resource "aws_iam_role_policy_attachment" "AllowEC2AccessSessionManagerToSSH" {
+  role       = aws_iam_role.AllowEC2AccessSessionManagerToSSH.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+}
